@@ -49,6 +49,21 @@ footer p {
   font-size: 1.1em;
   margin-bottom: 6px;
 }
+
+.note .header1 {
+  font-size: 1.1em;
+  margin-bottom: 6px;
+  box-sizing: border-box;
+  padding: 0px;
+  margin: 0px;
+  display: block;
+  margin-block-start: 0.67em;
+  margin-block-end: 0.67em;
+  margin-inline-start: 0px;
+  margin-inline-end: 0px;
+  font-weight: bold;
+}
+
 .note p {
   font-size: 1.1em;
   margin-bottom: 10px;
@@ -56,10 +71,36 @@ footer p {
   word-wrap: break-word;
 }
 
-.note button {
+.note .para {
+  font-size: 1.1em;
+  margin-bottom: 10px;
+  white-space: pre-wrap;
+  overflow-wrap: break-word;
+  box-sizing: border-box;
+  padding: 0px;
+  margin: 0px;
+  display: block;
+  margin-block-start: 1em;
+  margin-block-end: 1em;
+  margin-inline-start: 0px;
+  margin-inline-end: 0px;
+}
+
+.note .delete-icon {
   position: relative;
   float: right;
   margin-right: 10px;
+  color: #f5ba13;
+  border: none;
+  width: 36px;
+  height: 36px;
+  cursor: pointer;
+  outline: none;
+}
+
+.note .edit-icon {
+  position: relative;
+  float: left;
   color: #f5ba13;
   border: none;
   width: 36px;
@@ -101,3 +142,4 @@ form.create-note button {
   cursor: pointer;
   outline: none;
 }
+
