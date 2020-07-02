@@ -17,7 +17,6 @@ router.route("/")
     newNote.save()
     .then(() => res.json("Note successfully saved to db"))
     .catch(err => res.json("Error "+err))
-
 })
 
 router.route("/:id")

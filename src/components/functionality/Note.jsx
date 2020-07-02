@@ -16,7 +16,6 @@ function Note(props){
         const newText = event.target.value
         setTitleText(newText)
         madeChange.current.titleChange = true
-        
     }
 
     function onContentChange(event){
@@ -38,13 +37,12 @@ function Note(props){
             handleUndo()
         } else{
             if ((!madeChange.current.titleChange) && (!madeChange.current.contentChange)){
+                setTitleText(props.title)
+                setContentText(props.content)
+                
                 setShowSubmit(false)
-                setShowDelete(true)
-                
-            } else {
-                console.log("worked");
-                
-            }
+                setShowDelete(true) 
+            } 
         }
     }
 
