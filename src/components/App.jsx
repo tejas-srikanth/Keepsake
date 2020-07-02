@@ -1,3 +1,8 @@
+//TODO: get rid of multiple edits (if you do this, you have to put the original text back)
+//TODO: Add sidebar for extra lists
+//TODO: Add backend for extra lists+users
+//TODO: login page frontend
+
 import React, {useState, useEffect} from "react";
 import axios from "axios";
 import Header from "./templates/Header";
@@ -7,7 +12,7 @@ import CreateArea from "./functionality/CreateArea"
 
 function App(){
     const [listItems, setListItems] = useState([]);
-    const [editItem, setEditItem] = useState([])
+    const [editItem, setEditItem] = useState(false);
 
     useEffect(() => {
         axios.get("http://localhost:5000/notes")

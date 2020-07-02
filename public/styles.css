@@ -86,7 +86,7 @@ footer p {
   margin-inline-end: 0px;
 }
 
-.note .delete-icon {
+.note .edit-icon {
   position: relative;
   float: right;
   margin-right: 10px;
@@ -98,7 +98,7 @@ footer p {
   outline: none;
 }
 
-.note .edit-icon {
+.note .delete-icon {
   position: relative;
   float: left;
   color: #f5ba13;
