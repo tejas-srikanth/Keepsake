@@ -12,7 +12,6 @@ import CreateArea from "./functionality/CreateArea"
 
 function App(){
     const [listItems, setListItems] = useState([]);
-    const [editItem, setEditItem] = useState(false);
 
     useEffect(() => {
         axios.get("http://localhost:5000/notes")
@@ -20,8 +19,6 @@ function App(){
             setListItems(response.data)
         })
         .catch(err => console.log(err))
-
-        listItems.map(() => setEditItem(prevValue => [...prevValue, false]))
     }, [])
 
     function addTask(note){
@@ -43,11 +40,6 @@ function App(){
         window.location = "/"
     }
 
-    function editClicked(idx){
-        let newEditItem = editItem;
-        newEditItem[idx] = true;
-        setEditItem(newEditItem)
-    }
 
     return (
     <div>
@@ -63,7 +55,6 @@ function App(){
                     title={listItem.title} 
                     content={listItem.description} 
                     onDelete={deleteTask}
-                    onEdit={editClicked}
                     />
         })}
         
