@@ -20,6 +20,9 @@ connection.once('open', () => {
 const noteRouter = require("./routes/notes");
 app.use("/notes", noteRouter);
 
+const listRouter = require("./routes/lists");
+app.use("/lists", listRouter)
+
 app.listen(port, () => {
     console.log("Successfully connected to port 5000");
 })
