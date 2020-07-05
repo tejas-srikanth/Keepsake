@@ -1,6 +1,18 @@
 const router = require("express").Router();
 let Note = require("../models/note.model.js");
 
+router.route("/")
+.get( (req, res) => {
+    Note.find()
+    .then( (notes) => {res.json(notes)})
+})
+.post( (req, res) => {
+    const newNote = new Note({
+        title: req.query.title,
+        description: req.query.description,
+        listID: "5eff6891af7fbf66841ddcca"
+    })
+})
 
 router.route("/:listID/:id")
 .delete((req, res) => {
@@ -16,6 +28,7 @@ router.route("/:listID/:id")
 
 router.route("/:listID")
 .get( (req, res) => {
+    
     Note.find({listID: req.params.listID})
     .then( (notes) => { res.json(notes) })
     .catch( err => res.json( "Error "+err))
@@ -24,7 +37,7 @@ router.route("/:listID")
     const newNote = new Note({
         title: req.body.title,
         description: req.body.description,
-        listID: listID
+        listID: req.params.listID
     })
 
     newNote.save()
