@@ -63,7 +63,7 @@ function Note(props){
         
         const editedNote = {title: titleText, description: contentText}
         
-        axios.patch("http://localhost:5000/notes/"+props.id, editedNote)
+        axios.patch("http://localhost:5000/notes/"+props.listID+"/"+props.id, editedNote)
         .then( () => console.log("Successfully updated item") )
 
         setShowSubmit(false)

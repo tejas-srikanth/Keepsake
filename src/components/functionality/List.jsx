@@ -42,7 +42,8 @@ function List(props){
         {listItems.map((listItem) => {
             return <Note 
                     key={listItem._id} 
-                    id={listItem._id} 
+                    id={listItem._id}
+                    listID = {listItem.listID} 
                     title={listItem.title} 
                     content={listItem.description} 
                     onDelete={deleteTask}
