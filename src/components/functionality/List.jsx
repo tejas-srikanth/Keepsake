@@ -1,6 +1,5 @@
 import React, {useState, useEffect} from "react";
 import axios from "axios";
-import Header from "../templates/Header";
 import Footer from "../templates/Footer";
 import Note from "./Note";
 import CreateArea from "./CreateArea"
@@ -9,12 +8,13 @@ function List(props){
     const [listItems, setListItems] = useState([]);
 
     useEffect(() => {
+
         axios.get("http://localhost:5000/notes/"+props.match.params.listID)
         .then(response => {
             setListItems(response.data)
         })
         .catch(err => console.log(err))
-    }, [])
+    }, [props.match.params.listID])
 
     function addTask(note){
         console.log(props.match.params.listID);

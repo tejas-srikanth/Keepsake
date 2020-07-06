@@ -12,4 +12,14 @@ router.route("/")
     .then( () => res.json("New list saved") )
 })
 
+router.route("/:id")
+.patch( (req, res) => {
+    List.findByIdAndUpdate(req.params.id, {$set: req.query})
+    .then( () => res.json("Item successfully updated") )
+})
+.delete( (req, res) => {
+    List.findByIdAndDelete(req.params.id)
+    .then( () => res.json("successfully deleted item"))
+})
+
 module.exports = router

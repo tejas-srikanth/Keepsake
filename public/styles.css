@@ -164,7 +164,7 @@ form.create-note button {
 
 /* Position and sizing of clickable cross button */
 .bm-cross-button {
-  height: 24px;
+  height: 48px !important;
   width: 24px;
 }
 
@@ -221,4 +221,21 @@ Note: Beware of modifying this element as it can break the animations - you shou
   color: white;
   font-family: 'Raleway', Arial, sans-serif;
   font-size: 1.15rem;
+}
+
+.list-delete-icon{
+  position: absolute;
+  right: 40px;
+  background: #f1cf72;
+  border: 0;
+}
+
+.list-header{
+  border: 0 !important;
+}
+
+.menu-item{
+  padding: 10px 0px;
+  position: relative;
+  right: 12px;
 }

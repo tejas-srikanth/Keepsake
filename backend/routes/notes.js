@@ -21,7 +21,7 @@ router.route("/:listID/:id")
     .catch(err => res.json("Error "+err))
 })
 .patch((req, res) => {
-    Note.findOneAndUpdate({_id: req.params.id}, {$set: req.body})
+    Note.findOneAndUpdate({_id: req.params.id}, {$set: req.query})
     .then( () => res.json("Successfully updated item."))
     .catch(err => res.json("Error "+err))
 })
