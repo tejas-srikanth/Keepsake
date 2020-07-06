@@ -2,7 +2,7 @@ import React, {useState, useEffect} from "react";
 import axios from "axios";
 import Footer from "../templates/Footer";
 import Note from "./Note";
-import CreateArea from "./CreateArea"
+import CreateArea from "./CreateArea";
 
 function List(props){
     const [listItems, setListItems] = useState([]);
