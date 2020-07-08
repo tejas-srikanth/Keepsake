@@ -16,13 +16,18 @@ function Sidebar(props) {
   const [allLists, setAllLists] = useState([]);
 
   const [showListAdder, setShowListAdder] = useState(false);
-  const [newListName, setNewListName] = useState("")
+  const [newListName, setNewListName] = useState("");
+
+  const [allItems, setAllItems] = useState([])
+  const [editingListName, setEditingListName] = useState("")
 
 
   useEffect( () => {
     axios.get("http://localhost:5000/lists/")
     .then(response => {
       setAllLists(response.data)
+
+      response.data.forEach(response => setAllItems(prevValue => [...prevValue, false]))
     })
   }, [])
 
@@ -65,13 +70,13 @@ function Sidebar(props) {
   }
 
   return (
-    <Menu right isOpen>
+    <Menu right >
       <h3 className="list-header">Your lists: </h3>
       {allLists.map((list, index) => {
         return (
         <div key={index}>
-          <Link className="menu-item" href={"/"+list._id} > <span>{list.title}</span> </Link>
-          <DropdownMenu listID={list._id} deleteList={props.deleteClicked}/>
+          <Link className="menu-item" to={"/"+list._id} > <span>{list.title}</span> </Link>
+          <DropdownMenu listID={list._id} deleteList={props.deleteClicked} listName={list.title} />
         </div>
         )
       })}

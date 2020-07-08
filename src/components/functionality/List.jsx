@@ -1,19 +1,24 @@
 import React, {useState, useEffect} from "react";
 import axios from "axios";
+import ContentEditable from 'react-contenteditable'
 import Footer from "../templates/Footer";
 import Note from "./Note";
 import CreateArea from "./CreateArea";
 
 function List(props){
     const [listItems, setListItems] = useState([]);
+    const [listName, setListName] = useState("")
 
     useEffect(() => {
-
+        console.log(props.match.params)
         axios.get("http://localhost:5000/notes/"+props.match.params.listID)
         .then(response => {
             setListItems(response.data)
         })
         .catch(err => console.log(err))
+
+        axios.get("http://localhost:5000/lists/"+props.match.params.listID)
+        .then(response => setListName(response.data.title))
     }, [props.match.params.listID])
 
     function addTask(note){
@@ -34,8 +39,14 @@ function List(props){
         window.location = "/"+props.match.params.listID
     }
 
+    function titleChange(event){
+        const value = event.target.value;
+        setListName(value);
+    }
+
     return (
     <div>
+        {!props.editListName? <h1 className="listname-header">{listName}</h1> : <ContentEditable className="listname-header" onChange={titleChange} html={listName} />}
         <CreateArea 
             onAdd={addTask}
         />

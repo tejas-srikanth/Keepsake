@@ -17,15 +17,10 @@ import List from "./functionality/List";
 function App(){
     const [showDeleteMenu, setShowDeleteMenu] = useState(false);
     const [deleteID, setDeleteID] = useState("")
-    const [editListName, setEditListName] = useState(false);
 
     function showDeletePopup(listID){
         setShowDeleteMenu(true);
         setDeleteID(listID)
-    }
-
-    function editClicked(){
-        setEditListName(true);
     }
 
     function finishedDeleting(){
@@ -38,7 +33,7 @@ function App(){
             <Header deleteClicked={showDeletePopup}/>
             <Body showPopup={showDeleteMenu} deleteID={deleteID} deleteDone={finishedDeleting}/>
             <Footer />
-            <Route path="/:listID" component={() => <List editList={editListName} />} />
+            <Route path="/:listID" component={List} />
         </Router>
     </div>
     );

@@ -258,6 +258,11 @@ Note: Beware of modifying this element as it can break the animations - you shou
 
 .listname-header{
   text-align: center;
+  font-size: 2.5rem;
+  margin-bottom: .5rem;
+  font-weight: 500;
+  line-height: 1.2;
+  margin-top: 0;
 }
 
 .list-div{

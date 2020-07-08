@@ -13,6 +13,10 @@ router.route("/")
 })
 
 router.route("/:id")
+.get( (req, res) => {
+    List.findById(req.params.id)
+    .then( listName => res.json(listName))
+})
 .patch( (req, res) => {
     List.findByIdAndUpdate(req.params.id, {$set: req.query})
     .then( () => res.json("Item successfully updated") )
