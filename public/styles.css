@@ -7,7 +7,7 @@ html {
   font-family: "Montserrat", sans-serif;
 }
 body {
-  background: #eee;
+  background: rgb(216, 203, 203);
   background-image: url("https://www.transparenttextures.com/patterns/cubes.png");
   padding: 0 16px;
 }
@@ -19,7 +19,7 @@ header {
   box-shadow: 0 0 10px 0 rgba(0, 0, 0, 0.3);
 }
 
-header h1 {
+header h1,h3 {
   color: #fff;
   font-family: "McLaren", cursive;
   font-weight: 200;
@@ -217,25 +217,48 @@ Note: Beware of modifying this element as it can break the animations - you shou
 
 .bm-item-list a span {
   margin-left: 10px;
-  font-weight: 700px;
+  font-weight: 700;
   color: white;
-  font-family: 'Raleway', Arial, sans-serif;
   font-size: 1.15rem;
+  text-decoration: none;
 }
 
 .list-delete-icon{
-  position: absolute;
-  right: 40px;
+  position: relative;
+  left: 180px;
+  bottom: 27px;
   background: #f1cf72;
   border: 0;
 }
 
+.material-icons.md-18 { 
+  font-size: 18px; 
+  display: inline-block;
+}
+
+.listname-div{
+  display: inline-block;
+  padding-top: 5px;
+  padding-bottom: 5px;
+}
+
 .list-header{
   border: 0 !important;
+  display: inline-block;
+  padding-bottom: 10px;
 }
 
 .menu-item{
   padding: 10px 0px;
   position: relative;
   right: 12px;
+}
+
+.listname-header{
+  text-align: center;
+}
+
+.list-div{
+  padding-top: 30px;
+
 }

@@ -7,6 +7,7 @@ import { Link } from 'react-router-dom';
 import EditIcon from '@material-ui/icons/Edit';
 import DeleteIcon from '@material-ui/icons/Delete';
 import DoneIcon from '@material-ui/icons/Done';
+import DropdownMenu from '../functionality/DropdownMenu'
 import axios from 'axios';
 import ContentEditable from "react-contenteditable";
 
@@ -50,8 +51,6 @@ function Sidebar(props) {
       console.log(prevValue)
       return prevValue
     });
-
-    window.location="/"
   }
 
   function onListNameChange(event){
@@ -65,9 +64,10 @@ function Sidebar(props) {
       <h1 className="list-header">Your lists: </h1>
       {allLists.map((list, index) => {
         return (
-        <div>
-          <Link key={index} className="menu-item" to={"/"+list._id}><span>{list.title}</span></Link>
-          <button onClick={() => deleteListItem(index, list._id)} className="list-delete-icon"><DeleteIcon fontSize="small"/></button>
+        <div key={index}>
+          <Link className="menu-item" to={"/"+list._id}><span>{list.title}</span></Link>
+          <DropdownMenu listID={list._id}/>
+          {/*<button onClick={() => deleteListItem(index, list._id)} className="list-delete-icon"><DeleteIcon fontSize="small"/></button>*/}
         </div>
         )
       })}
