@@ -7,6 +7,7 @@ import { Link } from 'react-router-dom';
 import EditIcon from '@material-ui/icons/Edit';
 import DeleteIcon from '@material-ui/icons/Delete';
 import DoneIcon from '@material-ui/icons/Done';
+import CloseIcon from '@material-ui/icons/Close';
 import DropdownMenu from '../functionality/DropdownMenu'
 import axios from 'axios';
 import ContentEditable from "react-contenteditable";
@@ -59,24 +60,29 @@ function Sidebar(props) {
     setNewListName(value);
   }
 
+  function closeListAdder(){
+    setShowListAdder(false);
+  }
+
   return (
     <Menu right isOpen>
-      <h1 className="list-header">Your lists: </h1>
+      <h3 className="list-header">Your lists: </h3>
       {allLists.map((list, index) => {
         return (
         <div key={index}>
           <Link className="menu-item" to={"/"+list._id}><span>{list.title}</span></Link>
-          <DropdownMenu listID={list._id}/>
+          <DropdownMenu listID={list._id} deleteList={props.deleteClicked}/>
           {/*<button onClick={() => deleteListItem(index, list._id)} className="list-delete-icon"><DeleteIcon fontSize="small"/></button>*/}
         </div>
         )
       })}
       {showListAdder ? 
-        <form action="/" onSubmit={submitNewListClicked}>
-          <input className="new-list-input" onChange={onListNameChange} value={newListName}></input>
-          <input type="submit" value="submit" className="new-list-button" />
-        </form>: 
-      <button className="new-list-button" onClick={addListClicked}>+ Create list</button>}
+        <div className="list-adder">
+          <ContentEditable html={newListName} onChange={onListNameChange} className="editable-listname"/>
+          <button onClick={submitNewListClicked}><DoneIcon /></button>
+          <button onClick={closeListAdder} className="close-listadder"><CloseIcon /></button>
+        </div>: 
+      <button className="list-adder new-list-button" onClick={addListClicked}>+ Create list</button>}
     </Menu>
   )
 }

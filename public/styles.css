@@ -2,6 +2,7 @@
   padding: 0;
   margin: 0;
   box-sizing: border-box;
+  outline:  0px solid transparent;
 }
 html {
   font-family: "Montserrat", sans-serif;
@@ -229,6 +230,7 @@ Note: Beware of modifying this element as it can break the animations - you shou
   bottom: 27px;
   background: #f1cf72;
   border: 0;
+  outline: 0px solid transparent;
 }
 
 .material-icons.md-18 { 
@@ -260,5 +262,31 @@ Note: Beware of modifying this element as it can break the animations - you shou
 
 .list-div{
   padding-top: 30px;
+}
 
+.editable-listname{
+  font-weight: 700;
+  color: white;
+  font-size: 1.15rem;
+  text-decoration: none;
+  outline: 2px solid;
+  outline-color: black;
+}
+
+button.list-delete-icon:focus{
+  outline: 0px solid transparent;
+}
+
+[contenteditable]:focus{
+  outline: 2px solid;
+  outline-color: black;
+}
+
+.close-listadder {
+  position: relative;
+  left: 160px;
+}
+
+.list-adder {
+  margin-top: 30px;
 }

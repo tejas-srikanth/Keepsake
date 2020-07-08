@@ -16,12 +16,7 @@ function DropdownMenu(props) {
     setAnchorEl(null);
   };
 
-  function handleDelete(id){
-    axios.delete("http://localhost:5000/lists/"+id)
-    .then( () => console.log("Successfully deleted item") )
 
-    window.location="/"
-  }
 
   return (
     <div style={{height: "0px"}}>
@@ -37,7 +32,7 @@ function DropdownMenu(props) {
         onClose={handleClose}
       >
         <MenuItem onClick={handleClose}>Rename List </MenuItem>
-        <MenuItem onClick={() => handleDelete(props.listID)}>Delete List</MenuItem>
+        <MenuItem onClick={() => {setAnchorEl(null); props.deleteList(props.listID);}}>Delete List</MenuItem>
       </Menu>
     </div>
   );
