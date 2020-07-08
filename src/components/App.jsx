@@ -1,4 +1,5 @@
 //TODO: Add sidebar for extra lists
+//TODO: Keep app on same page after all the actions
 //TODO: Add backend for extra lists+users
 //TODO: login page frontend
 
@@ -16,10 +17,15 @@ import List from "./functionality/List";
 function App(){
     const [showDeleteMenu, setShowDeleteMenu] = useState(false);
     const [deleteID, setDeleteID] = useState("")
+    const [editListName, setEditListName] = useState(false);
 
     function showDeletePopup(listID){
         setShowDeleteMenu(true);
         setDeleteID(listID)
+    }
+
+    function editClicked(){
+        setEditListName(true);
     }
 
     function finishedDeleting(){
@@ -32,7 +38,7 @@ function App(){
             <Header deleteClicked={showDeletePopup}/>
             <Body showPopup={showDeleteMenu} deleteID={deleteID} deleteDone={finishedDeleting}/>
             <Footer />
-            <Route path="/:listID" component={List} />
+            <Route path="/:listID" component={() => <List editList={editListName} />} />
         </Router>
     </div>
     );

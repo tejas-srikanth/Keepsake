@@ -70,9 +70,8 @@ function Sidebar(props) {
       {allLists.map((list, index) => {
         return (
         <div key={index}>
-          <Link className="menu-item" to={"/"+list._id}><span>{list.title}</span></Link>
+          <Link className="menu-item" href={"/"+list._id} > <span>{list.title}</span> </Link>
           <DropdownMenu listID={list._id} deleteList={props.deleteClicked}/>
-          {/*<button onClick={() => deleteListItem(index, list._id)} className="list-delete-icon"><DeleteIcon fontSize="small"/></button>*/}
         </div>
         )
       })}
