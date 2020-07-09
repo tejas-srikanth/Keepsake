@@ -46,8 +46,7 @@ function Note(props){
         }
     }
 
-    function handleDelete(event){
-        event.preventDefault()
+    function handleDelete(){
         props.onDelete(props.id)
     }
 

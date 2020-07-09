@@ -48,17 +48,6 @@ function Sidebar(props) {
     window.location="/"
   }
 
-  function deleteListItem(index, id){
-    axios.delete("http://localhost:5000/lists/"+id)
-    .then( () => console.log("Successfully deleted item") )
-
-    setAllLists(prevValue => {
-      prevValue.splice(index, 1)
-      console.log(prevValue)
-      return prevValue
-    });
-  }
-
   function onListNameChange(event){
     const value = event.target.value;
 
@@ -76,7 +65,7 @@ function Sidebar(props) {
         return (
         <div key={index}>
           <Link className="menu-item" to={"/"+list._id} > <span>{list.title}</span> </Link>
-          <DropdownMenu listID={list._id} deleteList={props.deleteClicked} listName={list.title} />
+          <DropdownMenu listID={list._id} deleteList={props.deleteClicked} listName={list.title}/>
         </div>
         )
       })}

@@ -1,5 +1,6 @@
 const router = require("express").Router();
 let List = require("../models/list.model.js");
+let Note = require("../models/note.model.js")
 
 router.route("/")
 .get( (req, res) => {
@@ -23,7 +24,11 @@ router.route("/:id")
 })
 .delete( (req, res) => {
     List.findByIdAndDelete(req.params.id)
-    .then( () => res.json("successfully deleted item"))
+    .then( () => console.log("successfully deleted list"))
+
+    Note.deleteMany({listID: req.params.id})
+    .then( () => res.json("successfully delete notes"))
+
 })
 
 module.exports = router

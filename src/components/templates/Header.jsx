@@ -5,7 +5,7 @@ import Sidebar from "./Sidebar"
 function Header(props){
     return (
         <header>
-            <h1><HighlightIcon />Keeper App</h1>
+            <h1 onClick={() => {window.location="/"}}><HighlightIcon />Keeper App</h1>
             <Sidebar deleteClicked={props.deleteClicked}/>
         </header>
     );

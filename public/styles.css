@@ -24,6 +24,7 @@ header h1,h3 {
   color: #fff;
   font-family: "McLaren", cursive;
   font-weight: 200;
+  cursor: pointer;
 }
 
 footer {

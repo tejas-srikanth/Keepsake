@@ -16,7 +16,7 @@ function PopupMenu(props) {
       
       handleClose();
 
-      window.location="/"
+      window.location="/";
     }
   
     return (
