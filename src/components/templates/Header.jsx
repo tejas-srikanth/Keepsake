@@ -5,8 +5,8 @@ import Sidebar from "./Sidebar"
 function Header(props){
     return (
         <header>
-            <h1 onClick={() => {window.location="/"}}><HighlightIcon />Keeper App</h1>
-            <Sidebar deleteClicked={props.deleteClicked}/>
+            <h1><HighlightIcon /><span onClick={() => window.location="/"}>Keeper App</span></h1>
+            <Sidebar deleteClicked={props.deleteClicked} createClicked={props.createClicked} list={props.list}/>
         </header>
     );
 }

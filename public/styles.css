@@ -24,6 +24,9 @@ header h1,h3 {
   color: #fff;
   font-family: "McLaren", cursive;
   font-weight: 200;
+}
+
+header h1 span{
   cursor: pointer;
 }
 
@@ -103,11 +106,9 @@ footer p {
 .note .delete-icon {
   position: relative;
   float: left;
-  color: #f5ba13;
   border: none;
-  width: 36px;
-  height: 36px;
-  cursor: pointer;
+  font-size: 0.8rem;
+  color: #b3b5be;
   outline: none;
 }
 
@@ -264,6 +265,8 @@ Note: Beware of modifying this element as it can break the animations - you shou
   font-weight: 500;
   line-height: 1.2;
   margin-top: 0;
+  position: relative;
+  top: 15px;
 }
 
 .list-div{

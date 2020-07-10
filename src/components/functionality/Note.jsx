@@ -1,48 +1,38 @@
 import React, {useState, useRef} from "react";
 import DeleteIcon from "@material-ui/icons/Delete";
 import DoneIcon from '@material-ui/icons/Done';
-import UndoIcon from '@material-ui/icons/Undo';
 import ContentEditable from "react-contenteditable";
 import axios from "axios";
 
 function Note(props){
-    const [titleText, setTitleText] = useState(props.title)
-    const [contentText, setContentText] = useState(props.content)
-    const madeChange = useRef({titleChange: false, contentChange: false})
+    const titleText = useRef(props.title)
+    const contentText = useRef(props.content)
     const [showSubmit, setShowSubmit] = useState(false)
-    const [showDelete, setShowDelete] = useState(true)
 
     function onTitleChange(event){
         const newText = event.target.value
-        setTitleText(newText)
-        madeChange.current.titleChange = true
+        titleText.current = newText
     }
 
     function onContentChange(event){
         const newText = event.target.value
-        setContentText(newText)
-        madeChange.current.contentChange = true
+        contentText.current=newText
     }
 
     function focusHandler(){
         setShowSubmit(true)
-        setShowDelete(false)
     }
 
-    function blurHandler(didSubmit, didUndo){
-        console.log(didSubmit, didUndo)
-        if (didSubmit) {
+    function blurHandler(event, didSubmit){
+        console.log(event.relatedTarget)
+        if ((event.relatedTarget) && (event.relatedTarget.className === "edit-icon")) {
+            console.log(true)
             submitEdits()
-        } else if (didUndo) {
-            handleUndo()
         } else{
-            if ((!madeChange.current.titleChange) && (!madeChange.current.contentChange)){
-                setTitleText(props.title)
-                setContentText(props.content)
-                
-                setShowSubmit(false)
-                setShowDelete(true) 
-            } 
+            titleText.current = props.title
+            contentText.current = props.content
+            
+            setShowSubmit(false)
         }
     }
 
@@ -50,31 +40,22 @@ function Note(props){
         props.onDelete(props.id)
     }
 
-    function handleUndo(){
-        setTitleText(props.title)
-        setContentText(props.content)
-
-        setShowSubmit(false)
-        setShowDelete(true)
-    }
-
     function submitEdits(){
         
-        const editedNote = {title: titleText, description: contentText}
-        
-        axios.patch("http://localhost:5000/notes/"+props.listID+"/"+props.id, editedNote)
+        const editedNote = {title: titleText.current, description: contentText.current}
+        console.log(editedNote)
+        axios.patch("http://localhost:5000/notes/"+props.id, editedNote)
         .then( () => console.log("Successfully updated item") )
 
         setShowSubmit(false)
-        setShowDelete(true)
     }
 
     return (
         <div className="note">
-            <ContentEditable className="header1" html={titleText} onChange={(event) => onTitleChange(event)} onFocus={focusHandler} onBlur={() => blurHandler(false, false)}/>
-            <ContentEditable className="para" html={contentText} onChange={(event) => onContentChange(event)} onFocus={focusHandler} onBlur={() => blurHandler(false, false)}/>
-            {showDelete?<button onClick={handleDelete } className="delete-icon">  <DeleteIcon /> </button>: <button onClick={() => blurHandler(false, true)} className="delete-icon"><UndoIcon /></button>}
-            {showSubmit && <button className="edit-icon" onClick={() => blurHandler(true, false)}> <DoneIcon/>  </button>}
+            <ContentEditable className="header1" html={titleText.current} onChange={(event) => onTitleChange(event)} onFocus={focusHandler} onBlur={(event) => blurHandler(event, false)}/>
+            <ContentEditable className="para" html={contentText.current} onChange={(event) => onContentChange(event)} onFocus={focusHandler} onBlur={(event) => blurHandler(event, false)}/>
+            <h6 className="delete-icon">{props.listName}</h6>
+            {showSubmit ? <button className="edit-icon" onClick={(event) => blurHandler(event, true)}> <DoneIcon/>  </button>:<button onClick={handleDelete } className="edit-icon">  <DeleteIcon /> </button>}
         </div>
     );
 }

@@ -1,17 +1,12 @@
 import React, { useState, useEffect, useRef } from 'react'
 import {slide as Menu} from 'react-burger-menu'
 import { Link } from 'react-router-dom';
-import DoneIcon from '@material-ui/icons/Done';
-import CloseIcon from '@material-ui/icons/Close';
 import DropdownMenu from '../functionality/DropdownMenu'
 import axios from 'axios';
 import ContentEditable from "react-contenteditable";
 
 function Sidebar(props) {
   const [allLists, setAllLists] = useState([]);
-
-  const [showListAdder, setShowListAdder] = useState(false);
-  const [newListName, setNewListName] = useState("");
 
   const [allItems, setAllItems] = useState([])
   const editingListName = useRef("")
@@ -25,33 +20,6 @@ function Sidebar(props) {
       response.data.forEach(response => setAllItems(prevValue => [...prevValue, false]))
     })
   }, [])
-
-  function addListClicked(){
-    setShowListAdder(true);
-  }
-
-  function submitNewListClicked(){
-
-    const list = {title: newListName}
-    axios.post("http://localhost:5000/lists/", list)
-    .then(() => console.log("List is saved"))
-    .catch(err => console.log(err));
-
-    setShowListAdder(false);
-    setNewListName("");
-
-    window.location="/"
-  }
-
-  function onListNameChange(event){
-    const value = event.target.value;
-
-    setNewListName(value);
-  }
-
-  function closeListAdder(){
-    setShowListAdder(false);
-  }
 
   function renameListClicked(index){
     const newArr = [...allItems];
@@ -73,6 +41,8 @@ function Sidebar(props) {
     const newArr = [...allItems];
     newArr[index] = false;
     setAllItems(newArr);
+
+    window.location="/"+props.list;
   }
 
   return (
@@ -93,13 +63,7 @@ function Sidebar(props) {
         </div>
         )
       })}
-      {showListAdder ? 
-        <div className="list-adder">
-          <ContentEditable html={newListName} onChange={onListNameChange} className="editable-listname"/>
-          <button onClick={submitNewListClicked}><DoneIcon /></button>
-          <button onClick={closeListAdder} className="close-listadder"><CloseIcon /></button>
-        </div>: 
-      <button className="list-adder new-list-button" onClick={addListClicked}>+ Create list</button>}
+      <button className="list-adder new-list-button" onClick={props.createClicked}>+ Create list</button>
     </Menu>
   )
 }

@@ -5,7 +5,7 @@ function Body(props){
 
     return (
         <div>
-            {props.showPopup && <PopupMenu deleteID={props.deleteID} deleteDone={props.deleteDone}/>}
+            {props.showPopup && <PopupMenu deleteID={props.deleteID} actionDone={props.actionDone} action={props.action} list={props.list}/>}
         </div>
     )
 }

@@ -1,6 +1,4 @@
 import React from 'react';
-import {Link} from 'react-router-dom'
-import axios from 'axios'
 import Button from '@material-ui/core/Button';
 import Menu from '@material-ui/core/Menu';
 import MenuItem from '@material-ui/core/MenuItem';

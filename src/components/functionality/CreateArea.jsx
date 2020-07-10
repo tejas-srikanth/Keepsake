@@ -14,7 +14,7 @@ function CreateArea(props) {
     }
 
     function addClicked(event){
-        props.onAdd(note);
+        props.onAdd(note, props.listName);
         setNote({title: "", content: ""});
         console.log(note)
         event.preventDefault();        

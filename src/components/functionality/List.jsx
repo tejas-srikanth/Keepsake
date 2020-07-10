@@ -19,18 +19,25 @@ function List(props){
 
             axios.get("http://localhost:5000/lists/"+props.match.params.listID)
             .then(response => setListName(response.data.title))
+
+            props.updateLocation(props.match.params.listID)
         } else {
             axios.get("http://localhost:5000/notes/")
             .then(response => setListItems(response.data))
+
+            setListName("Home")
+
+            props.updateLocation("")
         }
+    
         
-    }, [props.match.params.listID])
+    }, [props.match.params.listID, props.updateLocation])
 
-    function addTask(note){
-        console.log(props.match.params.listID);
-        const newNote = {title: note.title, description: note.content}
+    function addTask(note, listName){
+        const newNote = {title: note.title, description: note.content, listName: listName}
         if (props.match.params.listID){
-
+            // console.log(newNote.listName)
+            console.log(props.match.params.listID);
             axios.post("http://localhost:5000/notes/"+props.match.params.listID, newNote)
             .then(res => console.log(res.data))
             window.location = "/"+props.match.params.listID
@@ -43,23 +50,14 @@ function List(props){
     }
 
     function deleteTask(id){
-        if (props.match.params.listID){
-            axios.delete("http://localhost:5000/notes/"+props.match.params.listID+"/"+id)
-            .then(() => console.log("Item successfully deleted"))
-            setListItems(listItems.filter((listItem, idx)=>{
-                return idx !== id;
-            }))
+        axios.delete("http://localhost:5000/notes/"+id)
+        .then(() => console.log("Item successfully deleted"))
+        setListItems(listItems.filter((listItem, idx)=>{
+            return idx !== id;
+        }))
 
-            window.location = "/"+props.match.params.listID
-        } else {
-            axios.delete("http://localhost:5000/notes/"+id)
-            .then(() => console.log("item successfully deleted"))
-            setListItems(listItems.filter((listItem, idx)=>{
-                return idx !== id;
-            }))
+        props.match.params.listID ? window.location = "/"+props.match.params.listID : window.location = "/"
 
-            window.location = "/"
-        }
         
     }
 
@@ -71,9 +69,11 @@ function List(props){
     return (
     <div>
         {!props.editListName? <h1 className="listname-header">{listName}</h1> : <ContentEditable className="listname-header" onChange={titleChange} html={listName} />}
+        {props.match.params.listID&&
         <CreateArea 
             onAdd={addTask}
-        />
+            listName={listName}
+        />}
         {listItems.map((listItem) => {
             return <Note 
                     key={listItem._id} 
@@ -82,6 +82,7 @@ function List(props){
                     title={listItem.title} 
                     content={listItem.description} 
                     onDelete={deleteTask}
+                    listName={listItem.listName}
                     />
         })}
         <Footer />

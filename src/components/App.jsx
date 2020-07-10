@@ -15,26 +15,35 @@ import Footer from "./templates/Footer"
 import List from "./functionality/List";
 
 function App(){
-    const [showDeleteMenu, setShowDeleteMenu] = useState(false);
+    const [action, setAction] = useState("");
     const [deleteID, setDeleteID] = useState("");
     const [list, setList] = useState("");
 
     function showDeletePopup(listID){
-        setShowDeleteMenu(true);
+        setAction("delete");
         setDeleteID(listID)
     }
 
     function finishedDeleting(){
         setDeleteID("")
+        setAction("")
+    }
+
+    function showCreatePopup(){
+        setAction("create")
+    }
+
+    function listLocation(listID){
+        setList(listID)
     }
 
     return (
     <div>
         <Router>
-            <Header deleteClicked={showDeletePopup}/>
-            <Body showPopup={showDeleteMenu} deleteID={deleteID} deleteDone={finishedDeleting} list={list}/>
+            <Header deleteClicked={showDeletePopup} createClicked={showCreatePopup} list={list}/>
+            <Body showPopup={action !== ""} deleteID={deleteID} actionDone={finishedDeleting} list={list} action={action}/>
             <Footer />
-            <Route path="/:listID?" component={List} />
+            <Route path="/:listID?" render={(props) => <List {...props} updateLocation={listLocation} />} />
         </Router>
     </div>
     );
