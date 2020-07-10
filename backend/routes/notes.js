@@ -12,7 +12,6 @@ router.route("/")
         description: req.query.description,
         listID: "5eff6891af7fbf66841ddcca"
     })
-
     newNote.save();
 })
 

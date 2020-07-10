@@ -19,7 +19,7 @@ router.route("/:id")
     .then( listName => res.json(listName))
 })
 .patch( (req, res) => {
-    List.findByIdAndUpdate(req.params.id, {$set: req.query})
+    List.findByIdAndUpdate(req.params.id, {$set: req.body})
     .then( () => res.json("Item successfully updated") )
 })
 .delete( (req, res) => {

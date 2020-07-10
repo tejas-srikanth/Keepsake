@@ -1,11 +1,6 @@
-import React, { useState, useEffect } from 'react'
-// import List from '@material-ui/core/List'
-// import ListItem from '@material-ui/core/ListItem'
-// import ListItemText from '@material-ui/core/ListItemText'
+import React, { useState, useEffect, useRef } from 'react'
 import {slide as Menu} from 'react-burger-menu'
 import { Link } from 'react-router-dom';
-import EditIcon from '@material-ui/icons/Edit';
-import DeleteIcon from '@material-ui/icons/Delete';
 import DoneIcon from '@material-ui/icons/Done';
 import CloseIcon from '@material-ui/icons/Close';
 import DropdownMenu from '../functionality/DropdownMenu'
@@ -19,7 +14,7 @@ function Sidebar(props) {
   const [newListName, setNewListName] = useState("");
 
   const [allItems, setAllItems] = useState([])
-  const [editingListName, setEditingListName] = useState("")
+  const editingListName = useRef("")
 
 
   useEffect( () => {
@@ -58,14 +53,43 @@ function Sidebar(props) {
     setShowListAdder(false);
   }
 
+  function renameListClicked(index){
+    const newArr = [...allItems];
+    newArr[index] = true;
+    setAllItems(newArr);
+  }
+
+  function onEditChange(event){
+    const value = event.target.value;
+    editingListName.current = value;
+  }
+
+  function saveChanges(index, listID){
+    const newList = {title: editingListName.current}
+
+    axios.patch("http://localhost:5000/lists/"+listID, newList)
+    .then( () => console.log("successfully patched"))
+
+    const newArr = [...allItems];
+    newArr[index] = false;
+    setAllItems(newArr);
+  }
+
   return (
     <Menu right >
       <h3 className="list-header">Your lists: </h3>
       {allLists.map((list, index) => {
         return (
         <div key={index}>
-          <Link className="menu-item" to={"/"+list._id} > <span>{list.title}</span> </Link>
-          <DropdownMenu listID={list._id} deleteList={props.deleteClicked} listName={list.title}/>
+        {!allItems[index]?
+          <div>
+            <Link className="menu-item" to={"/"+list._id} > <span>{list.title}</span> </Link>
+            <DropdownMenu listID={list._id} deleteList={props.deleteClicked} listName={list.title} idx={index} editClicked={renameListClicked}/>
+          </div>:
+          <div>
+            <ContentEditable html = {editingListName.current} onChange={onEditChange} onBlur={() => saveChanges(index, list._id)}/>
+          </div>
+        }
         </div>
         )
       })}

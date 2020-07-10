@@ -31,7 +31,7 @@ function DropdownMenu(props) {
         open={Boolean(anchorEl)}
         onClose={handleClose}
       >
-        {/* <MenuItem onClick={() => {props.renameClicked(props.idx, props.listName)}}>Rename List </MenuItem> */}
+        <MenuItem onClick={() => {props.editClicked(props.idx)}}>Rename List </MenuItem>
         <MenuItem onClick={() => {setAnchorEl(null); props.deleteList(props.listID);}}>Delete List</MenuItem>
       </Menu>
     </div>

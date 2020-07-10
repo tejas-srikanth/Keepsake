@@ -283,9 +283,9 @@ button.list-delete-icon:focus{
   outline: 0px solid transparent;
 }
 
-[contenteditable]:focus{
-  outline: 2px solid;
-  outline-color: black;
+[contenteditable]{
+  background: white;
+  color: black;
 }
 
 .close-listadder {
