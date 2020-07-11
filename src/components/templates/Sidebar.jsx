@@ -6,13 +6,20 @@ import axios from 'axios';
 import ContentEditable from "react-contenteditable";
 
 function Sidebar(props) {
-  const [allLists, setAllLists] = useState([]);
+  //props
+  //props.deleteClicked = function that shows the delete popup
+  //props.createClicked = function that shows the create list popup
+  //props.list = ID of current list location
 
-  const [allItems, setAllItems] = useState([])
+  const [allLists, setAllLists] = useState([]);//set the lists to their name
+
+  const [allItems, setAllItems] = useState([])//which item is being edited
   const editingListName = useRef("")
 
-
+  //once the Sidebar is rendered in the DOM
   useEffect( () => {
+    //get all the lists for display
+    //then set allItems (which items are being edited) to false
     axios.get("http://localhost:5000/lists/")
     .then(response => {
       setAllLists(response.data)
@@ -21,27 +28,33 @@ function Sidebar(props) {
     })
   }, [])
 
+  //if the rename list was clicked 
   function renameListClicked(index){
     const newArr = [...allItems];
     newArr[index] = true;
     setAllItems(newArr);
   }
 
+  //if the text in the input field for a renamed list is changed
   function onEditChange(event){
     const value = event.target.value;
     editingListName.current = value;
   }
 
+  //save the changes to the database, finish renaming the list
   function saveChanges(index, listID){
     const newList = {title: editingListName.current}
     const newTitle = {newListName: editingListName.current}
 
+    //update the list name itself within the list collection
     axios.patch("http://localhost:5000/lists/"+listID, newList)
     .then( () => console.log("successfully patched"))
 
+    //update the notes that go along with that list, and change the list names
     axios.patch("http://localhost:5000/notes/lists/"+listID, newTitle)
     .then( () => console.log("Item successfully updated"))
 
+    //reset the allItems array to false, as none of the items are now being edited
     const newArr = [...allItems];
     newArr[index] = false;
     setAllItems(newArr);
@@ -49,6 +62,8 @@ function Sidebar(props) {
     window.location="/"+props.list;
   }
 
+  //if the enter key is pressed, trigger the saveChanges function
+  //and save the changes to a database
   function handleKeyDown(event, index, listID){
     if (event.keyCode === 13){
       saveChanges(index, listID)

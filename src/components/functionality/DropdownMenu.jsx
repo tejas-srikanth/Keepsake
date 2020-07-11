@@ -4,12 +4,21 @@ import Menu from '@material-ui/core/Menu';
 import MenuItem from '@material-ui/core/MenuItem';
 
 function DropdownMenu(props) {
+  //props
+  //listID = the id of the list that the action's being done on
+  //deleteList = once delete is clicked, shows delete popup
+  //listName = the title of the list the action's being done on
+  //idx = index of the list in the state hook
+  //editClicked = rename list clicked
+  
   const [anchorEl, setAnchorEl] = React.useState(null);
 
+  //when the menu is clicked
   const handleClick = (event) => {
     setAnchorEl(event.currentTarget);
   };
 
+  //when the menu is closed
   const handleClose = () => {
     setAnchorEl(null);
   };

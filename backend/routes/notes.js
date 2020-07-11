@@ -1,6 +1,7 @@
 const router = require("express").Router();
 let Note = require("../models/note.model.js");
 
+//adding notes and getting notes from the home route
 router.route("/")
 .get( (req, res) => {
     Note.find()
@@ -16,6 +17,7 @@ router.route("/")
     newNote.save();
 })
 
+//deleting and modifying notes
 router.route("/:id")
 .delete((req, res) => {
     Note.findByIdAndDelete(req.params.id)
@@ -28,6 +30,7 @@ router.route("/:id")
     .catch(err => res.json("Error "+err))
 })
 
+//getting, adding, and updating notes in specific lists
 router.route("/lists/:listID")
 .get( (req, res) => {
     
@@ -51,4 +54,5 @@ router.route("/lists/:listID")
     .then( () => res.json("Successfuly updated list"))
 })
 
+//export the router object
 module.exports = router

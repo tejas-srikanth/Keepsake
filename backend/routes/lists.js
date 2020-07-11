@@ -2,6 +2,7 @@ const router = require("express").Router();
 let List = require("../models/list.model.js");
 let Note = require("../models/note.model.js")
 
+//add a new list or get all lists
 router.route("/")
 .get( (req, res) => {
     List.find()
@@ -13,6 +14,8 @@ router.route("/")
     .then( () => res.json("New list saved") )
 })
 
+//get a certain list, update the name of a certain list, or 
+//delete the list and the notes that come with it
 router.route("/:id")
 .get( (req, res) => {
     List.findById(req.params.id)

@@ -8,11 +8,13 @@ function CreateArea(props) {
     const [note, setNote] = useState({title: "", content: ""});
     const [isExpanded, setIsExpanded] = useState(false)
 
+    //update the contents of a note
     function updateNote(event){
         const {name, value} = event.target;
         setNote({...note, [name]: value});
     }
 
+    //add a new note that was created
     function addClicked(event){
         props.onAdd(note, props.listName);
         setNote({title: "", content: ""});
@@ -20,6 +22,7 @@ function CreateArea(props) {
         event.preventDefault();        
     }
 
+    //if the createArea is expanded
     function updateIsExpanded(){
         setIsExpanded(true)
     }

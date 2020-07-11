@@ -16,20 +16,25 @@ function App(){
     const [deleteID, setDeleteID] = useState("");
     const [list, setList] = useState("");
 
+    //show the popup that asks user whether
+    //they want to delete
     function showDeletePopup(listID){
         setAction("delete");
         setDeleteID(listID)
     }
 
+    //when an action is finished (create or delete)
     function finishedAction(){
         setDeleteID("")
         setAction("")
     }
 
+    //show the popup that creates a list
     function showCreatePopup(){
         setAction("create");
     }
 
+    //set the curernt list route
     function listLocation(listID){
         setList(listID)
     }

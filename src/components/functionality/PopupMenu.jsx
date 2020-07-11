@@ -5,11 +5,20 @@ import Modal from 'react-bootstrap/Modal'
 import ContentEditable from 'react-contenteditable';
 
 function PopupMenu(props) {
+    //props
+    //props.showPopup = is a popup being shown
+    //deleteID = the ID of the list being deleted
+    //actionDone = actionDone in App
+    //action = the action being done
+    //list = the current list location
+  
     const [show, setShow] = useState(true);
     const [newListName, setNewListName] = useState("");
-  
+
+    //once the modal is closed
     const handleClose = () => {setShow(false); props.actionDone();}
 
+    //delete a list
     function handleDelete(id){
 
       axios.delete("http://localhost:5000/lists/"+id)
@@ -21,14 +30,17 @@ function PopupMenu(props) {
 
     }
 
+    //for creating a new list (the contenteditable)
     function handleChange(event){
       const value = event.target.value;
       setNewListName(value)
     }
 
+    //when a new list was submitted
     function submitNewListClicked(){
 
       const list = {title: newListName}
+      //post the list to the lists home route
       axios.post("http://localhost:5000/lists/", list)
       .then(() => console.log("List is saved"))
       .catch(err => console.log(err));
