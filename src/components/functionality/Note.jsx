@@ -25,7 +25,7 @@ function Note(props){
     }
 
     function blurHandler(event, didSubmit){
-        console.log(event.relatedTarget)
+
         if ((event.relatedTarget) && (event.relatedTarget.className === "edit-icon")) {
             console.log(true)
             submitEdits()
@@ -55,7 +55,7 @@ function Note(props){
         <div className="note">
             <ContentEditable className="header1" html={titleText.current} onChange={(event) => onTitleChange(event)} onFocus={focusHandler} onBlur={(event) => blurHandler(event, false)}/>
             <ContentEditable className="para" html={contentText.current} onChange={(event) => onContentChange(event)} onFocus={focusHandler} onBlur={(event) => blurHandler(event, false)}/>
-            <h6 className="delete-icon">{props.listName === "Home"?<HomeIcon fontSize="small" />:props.listName}</h6>
+            <h6 className="delete-icon">{props.listID === "home"?<HomeIcon fontSize="small" />:props.listName}</h6>
             {showSubmit ? <button className="edit-icon" onClick={(event) => blurHandler(event, true)}> <DoneIcon/>  </button>:<button onClick={handleDelete } className="edit-icon">  <DeleteIcon /> </button>}
         </div>
     );

@@ -1,14 +1,11 @@
-//TODO: Add sidebar for extra lists
-//TODO: Keep app on same page after all the actions
+
+
 //TODO: Add backend for extra lists+users
 //TODO: login page frontend
 
 import React, {useState} from "react";
 import 'bootstrap/dist/css/bootstrap.min.css';
-import {
-    BrowserRouter as Router,
-    Route,
-  } from "react-router-dom";
+import { BrowserRouter as Router, Route, Redirect } from "react-router-dom";
 import Header from "./templates/Header"
 import Body from "./templates/Body"
 import Footer from "./templates/Footer"
@@ -24,13 +21,13 @@ function App(){
         setDeleteID(listID)
     }
 
-    function finishedDeleting(){
+    function finishedAction(){
         setDeleteID("")
         setAction("")
     }
 
     function showCreatePopup(){
-        setAction("create")
+        setAction("create");
     }
 
     function listLocation(listID){
@@ -40,9 +37,12 @@ function App(){
     return (
     <div>
         <Router>
-            <Header deleteClicked={showDeletePopup} createClicked={showCreatePopup} list={list}/>
-            <Body showPopup={action !== ""} deleteID={deleteID} actionDone={finishedDeleting} list={list} action={action}/>
+            <Header deleteClicked={showDeletePopup} createClicked={showCreatePopup} list={list} />
+            <Body showPopup={action !== ""} deleteID={deleteID} actionDone={finishedAction} list={list} action={action}/>
             <Footer />
+            <Route exact path="/">
+                <Redirect to="/home" />
+            </Route>
             <Route path="/:listID" render={(props) => <List {...props} updateLocation={listLocation} />} />
         </Router>
     </div>

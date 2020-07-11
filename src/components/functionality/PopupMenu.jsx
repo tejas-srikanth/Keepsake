@@ -8,7 +8,7 @@ function PopupMenu(props) {
     const [show, setShow] = useState(true);
     const [newListName, setNewListName] = useState("");
   
-    const handleClose = () => setShow(false);
+    const handleClose = () => {setShow(false); props.actionDone();}
 
     function handleDelete(id){
 
@@ -34,6 +34,7 @@ function PopupMenu(props) {
       .catch(err => console.log(err));
   
       setNewListName("");
+      setShow(false);
   
       window.location="/"+props.list;
     }
@@ -45,16 +46,16 @@ function PopupMenu(props) {
           <Modal.Header closeButton>
             <Modal.Title id="contained-modal-title-vcenter">{props.action === "create"? "New List" : "Warning"}</Modal.Title>
           </Modal.Header>
-          <Modal.Body>{props.action === "create"? <ContentEditable html = {newListName} onChange={handleChange} />: "Are you sure you want to delete this list"}</Modal.Body>
+          <Modal.Body>{props.action === "create"? <ContentEditable className="new-list-changer" html = {newListName} onChange={handleChange} />: "Are you sure you want to delete this list"}</Modal.Body>
           <Modal.Footer>
             <Button variant="secondary" onClick={handleClose}>
-              No
+              {props.action==="delete"?"No":"Close"}
             </Button>
             {props.action==="delete"?
-            <Button variant="primary" onClick={() => {handleDelete(props.deleteID); props.actionDone();}}>
+            <Button variant="danger" onClick={() => {handleDelete(props.deleteID); props.actionDone();}}>
               Yes
             </Button>:
-            <Button variant="primary" onClick={() => {submitNewListClicked()}}>
+            <Button variant="warning" onClick={() => {submitNewListClicked(); props.actionDone();}}>
               Create
             </Button>
             }

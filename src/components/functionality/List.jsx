@@ -1,6 +1,5 @@
 import React, {useState, useEffect} from "react";
 import axios from "axios";
-import ContentEditable from 'react-contenteditable'
 import Footer from "../templates/Footer";
 import Note from "./Note";
 import CreateArea from "./CreateArea";
@@ -10,8 +9,8 @@ function List(props){
     const [listName, setListName] = useState("")
 
     useEffect(() => {
-        if (props.match.params.listID !== "Home"){
-            axios.get("http://localhost:5000/notes/"+props.match.params.listID)
+        if (props.match.params.listID !== "home"){
+            axios.get("http://localhost:5000/notes/lists/"+props.match.params.listID)
             .then(response => {
                 setListItems(response.data)
             })
@@ -27,7 +26,7 @@ function List(props){
 
             setListName("Home")
 
-            props.updateLocation("Home")
+            props.updateLocation("home")
         }
     
         
@@ -38,7 +37,7 @@ function List(props){
         if (props.match.params.listID){
             // console.log(newNote.listName)
             console.log(props.match.params.listID);
-            axios.post("http://localhost:5000/notes/"+props.match.params.listID, newNote)
+            axios.post("http://localhost:5000/notes/lists/"+props.match.params.listID, newNote)
             .then(res => console.log(res.data))
             window.location = "/"+props.match.params.listID
         } else {
@@ -56,19 +55,14 @@ function List(props){
             return idx !== id;
         }))
 
-        props.match.params.listID!=="Home" ? window.location = "/"+props.match.params.listID : window.location = "/Home"
+        props.match.params.listID!=="home" ? window.location = "/"+props.match.params.listID : window.location = "/home"
 
         
     }
 
-    function titleChange(event){
-        const value = event.target.value;
-        setListName(value);
-    }
-
     return (
     <div>
-        {!props.editListName? <h1 className="listname-header">{listName}</h1> : <ContentEditable className="listname-header" onChange={titleChange} html={listName} />}
+        <h1 className="listname-header">{listName}</h1>
         <CreateArea 
             onAdd={addTask}
             listName={listName}

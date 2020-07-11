@@ -11,7 +11,7 @@ router.route("/")
         title: req.body.title,
         description: req.body.description,
         listName: req.body.listName,
-        listID: "Home"
+        listID: "home"
     })
     newNote.save();
 })
@@ -28,7 +28,7 @@ router.route("/:id")
     .catch(err => res.json("Error "+err))
 })
 
-router.route("/:listID")
+router.route("/lists/:listID")
 .get( (req, res) => {
     
     Note.find({listID: req.params.listID})
@@ -45,6 +45,10 @@ router.route("/:listID")
 
     newNote.save()
     .then( () => res.json("Successfully saved new note"))
+})
+.patch ( (req, res) => {
+    Note.updateMany({listID: req.params.listID}, {$set: {listName: req.body.newListName}})
+    .then( () => res.json("Successfuly updated list"))
 })
 
 module.exports = router

@@ -286,6 +286,16 @@ button.list-delete-icon:focus{
   outline: 0px solid transparent;
 }
 
+div.new-list-changer{
+  border-bottom: 2px solid black;
+  padding-bottom: 3px;
+}
+
+div.new-list-changer:focus{
+  border-bottom: 2px solid #f1cf72;
+  padding-bottom: 3px;
+}
+
 [contenteditable]{
   background: white;
   color: black;
@@ -296,6 +306,12 @@ button.list-delete-icon:focus{
   left: 160px;
 }
 
-.list-adder {
-  margin-top: 30px;
+.list-adder{
+  position: relative;
+  top: 18px;
+  box-shadow: 1px;
+  margin-bottom: 18px;
+  font-weight: 700 !important;
+  color: white;
+  font-size: 1.00rem !important;
 }
