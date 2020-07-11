@@ -1,8 +1,5 @@
-
-
 //TODO: Add backend for extra lists+users
 //TODO: login page frontend
-
 import React, {useState} from "react";
 import 'bootstrap/dist/css/bootstrap.min.css';
 import { BrowserRouter as Router, Route, Redirect } from "react-router-dom";
