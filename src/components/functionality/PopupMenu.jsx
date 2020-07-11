@@ -16,12 +16,9 @@ function PopupMenu(props) {
       .then( () => console.log("Successfully deleted item") )
       
       handleClose();
-
-      if (props.list !== id){
+      
       window.location="/"+props.list;
-      } else {
-        window.location="/"
-      }
+
     }
 
     function handleChange(event){

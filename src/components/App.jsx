@@ -43,7 +43,7 @@ function App(){
             <Header deleteClicked={showDeletePopup} createClicked={showCreatePopup} list={list}/>
             <Body showPopup={action !== ""} deleteID={deleteID} actionDone={finishedDeleting} list={list} action={action}/>
             <Footer />
-            <Route path="/:listID?" render={(props) => <List {...props} updateLocation={listLocation} />} />
+            <Route path="/:listID" render={(props) => <List {...props} updateLocation={listLocation} />} />
         </Router>
     </div>
     );

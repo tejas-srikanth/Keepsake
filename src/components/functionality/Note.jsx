@@ -2,6 +2,7 @@ import React, {useState, useRef} from "react";
 import DeleteIcon from "@material-ui/icons/Delete";
 import DoneIcon from '@material-ui/icons/Done';
 import ContentEditable from "react-contenteditable";
+import HomeIcon from '@material-ui/icons/Home';
 import axios from "axios";
 
 function Note(props){
@@ -54,7 +55,7 @@ function Note(props){
         <div className="note">
             <ContentEditable className="header1" html={titleText.current} onChange={(event) => onTitleChange(event)} onFocus={focusHandler} onBlur={(event) => blurHandler(event, false)}/>
             <ContentEditable className="para" html={contentText.current} onChange={(event) => onContentChange(event)} onFocus={focusHandler} onBlur={(event) => blurHandler(event, false)}/>
-            <h6 className="delete-icon">{props.listName}</h6>
+            <h6 className="delete-icon">{props.listName === "Home"?<HomeIcon fontSize="small" />:props.listName}</h6>
             {showSubmit ? <button className="edit-icon" onClick={(event) => blurHandler(event, true)}> <DoneIcon/>  </button>:<button onClick={handleDelete } className="edit-icon">  <DeleteIcon /> </button>}
         </div>
     );

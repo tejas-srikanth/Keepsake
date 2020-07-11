@@ -8,9 +8,10 @@ router.route("/")
 })
 .post( (req, res) => {
     const newNote = new Note({
-        title: req.query.title,
-        description: req.query.description,
-        listID: ""
+        title: req.body.title,
+        description: req.body.description,
+        listName: req.body.listName,
+        listID: "Home"
     })
     newNote.save();
 })

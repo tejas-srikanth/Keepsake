@@ -10,7 +10,7 @@ function List(props){
     const [listName, setListName] = useState("")
 
     useEffect(() => {
-        if (props.match.params.listID){
+        if (props.match.params.listID !== "Home"){
             axios.get("http://localhost:5000/notes/"+props.match.params.listID)
             .then(response => {
                 setListItems(response.data)
@@ -27,7 +27,7 @@ function List(props){
 
             setListName("Home")
 
-            props.updateLocation("")
+            props.updateLocation("Home")
         }
     
         
@@ -45,7 +45,7 @@ function List(props){
             
             axios.post("http://localhost:5000/notes/", newNote)
             .then(res => console.log(res.data))
-            window.location = "/"      
+            window.location = "/"+props.match.params.listID      
         }
     }
 
@@ -56,7 +56,7 @@ function List(props){
             return idx !== id;
         }))
 
-        props.match.params.listID ? window.location = "/"+props.match.params.listID : window.location = "/"
+        props.match.params.listID!=="Home" ? window.location = "/"+props.match.params.listID : window.location = "/Home"
 
         
     }
@@ -69,11 +69,10 @@ function List(props){
     return (
     <div>
         {!props.editListName? <h1 className="listname-header">{listName}</h1> : <ContentEditable className="listname-header" onChange={titleChange} html={listName} />}
-        {props.match.params.listID&&
         <CreateArea 
             onAdd={addTask}
             listName={listName}
-        />}
+        />
         {listItems.map((listItem) => {
             return <Note 
                     key={listItem._id} 
