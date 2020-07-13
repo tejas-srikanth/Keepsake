@@ -10,7 +10,7 @@ function Header(props){
     
     return (
         <header>
-            <h1><HighlightIcon /><span onClick={() => window.location="/home"}>Keeper App</span></h1>
+            <h1><HighlightIcon /><span onClick={() => window.location="/home"}>Keepsake</span></h1>
             <Sidebar deleteClicked={props.deleteClicked} createClicked={props.createClicked} list={props.list}/>
         </header>
     );
